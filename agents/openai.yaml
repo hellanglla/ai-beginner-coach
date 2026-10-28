@@ -1,4 +1,4 @@
 interface:
   display_name: "AI 新手陪练"
-  short_description: "先听你的思路，再补上理解缺口，逐步学会 AI 工具、搜索和工作流程"
-  default_prompt: "请用 $ai-beginner-coach 带我完成一个真实任务，先问我准备怎么做，根据我的思路判断理解和卡点，再一步一步教我用起来。"
+  short_description: "保留学习目标与指定工具，检查真实状态，逐步带你完成首次使用"
+  default_prompt: "请用 $ai-beginner-coach 带我完成真实任务。先记录已有目标、指定工具和当前状态，再按我的理解带做；已说过思路就不重复问。每轮保留原目标，执行前检查条件，实际验证结果。"

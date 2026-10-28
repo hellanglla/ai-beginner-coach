@@ -6,7 +6,15 @@
 
 An Agent Skill for people with no technical background. It guides learners through using tools, searching with AI, and connecting steps such as research, organization, and writing into a repeatable workflow.
 
-Current version: **v0.4.0** · [MIT license](LICENSE)
+Current version: **v0.5.0** · [MIT license](LICENSE)
+
+## Goal continuity and verified steps
+
+Version 0.5 separates the learning goal, required tool, exercise and collaboration mode. A request to “open it” inherits the required tool; switching to direct assistance does not remove it. Node.js 18+ scripts persist per-session state, reject out-of-order or mismatched evidence, invalidate stale results after exercise changes, and block completion without result evidence.
+
+Use `node scripts/install-local.cjs --project "PROJECT_PATH" --client claude` or `--client codex` from this repository. Claude receives a project skill plus a per-turn state hook; Codex receives a project skill. Existing skill directories are not overwritten. Verify actual host loading in a new task; file installation alone is not activation evidence.
+
+Run `node tests/coach-state.test.cjs` for local regression checks. The helper validates submitted records, not their truth, and does not intercept tools that bypass it. No universal hard enforcement is claimed. Session records under `.ai-beginner-coach/sessions/` are private task data and must not be published. See [task contract](references/task-contract.md) (Chinese) and [validation](docs/VALIDATION.md).
 
 ## What it does
 

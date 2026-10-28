@@ -6,7 +6,27 @@
 
 面向完全不懂技术的 AI 使用者的 Agent Skill。可以带你学工具、用 AI 搜资料，或把搜索、整理、写作串成一个可重复的工作流程。
 
-当前版本：**v0.4.0** · [MIT 许可证](LICENSE)
+当前版本：**v0.5.0** · [MIT 许可证](LICENSE)
+
+## v0.5：入口、目标保持与步骤检查
+
+指定工具与练习任务分别保存。“用 Ego Lite 打开测试网站”不会因为后续“帮我打开”变成提供普通链接；“直接帮我做”只改变协作方式。执行前核实安装、启动与连接，完成时要求对应工具的实际结果记录。见 [任务协议](references/task-contract.md)。
+
+程序能检查状态、证据字段、步骤顺序和环境标识；不能证明助手提交的证据真实，也不能拦截绕过检查器的工具调用。Claude 项目 hook 可逐轮恢复任务状态；其他客户端按 Skill 指令恢复。没有任意 Agent 永不偏离的保证。
+
+### 项目级安装与自检（Node.js 18+）
+
+从下载的本项目目录执行，替换项目路径：
+
+```text
+node scripts/install-local.cjs --project "你的工作项目路径" --client claude
+node scripts/install-local.cjs --project "你的工作项目路径" --client codex
+node tests/coach-state.test.cjs
+```
+
+按实际客户端选择一条安装命令。Claude 安装到 `.claude/skills/ai-beginner-coach` 并追加每轮状态 hook；Codex 安装到 `.agents/skills/ai-beginner-coach`。既有同名目录会拒绝覆盖，需先比较版本。安装命令会保留既有 Claude 设置并备份。仅复制文件不是客户端已加载的证据；请在新任务中核对 Skill 路径和状态记录。
+
+状态保存在工作项目 `.ai-beginner-coach/sessions/`，含用户任务信息，请勿提交到公共仓库。脚本不安装 Ego Lite，不替用户迁移浏览数据。
 
 ## 它解决什么问题
 

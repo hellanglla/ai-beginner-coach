@@ -1,6 +1,25 @@
 # 测试说明 / Validation notes
 
-Version: **v0.4.0** · Date: **2026-10-28**
+Version: **v0.5.0** · Date: **2026-10-28**
+
+## v0.5.0：目标保持与入口修复
+
+新增 9 组可执行 Node 测试（`node tests/coach-state.test.cjs`），全部通过。覆盖：入口字段与显示元数据；Ego Lite → 用途插问 → MBTI 练习 → 直接代办后的目标保持；缺失、错工具和自述证据；暂停/续接/显式改目标；持久化与重复启动；互斥写入；每轮会话注入和损坏状态；安装保留原设置；练习变更后旧结果失效；损坏安装配置的重试。
+
+显示元数据经 Skill Creator 的生成脚本生成。其 Python quick_validate 由于缺少 PyYAML 未能运行；Node 结构检查只验证本包实际使用的简单 frontmatter、显示字段与引用文件，不是通用 YAML 校验器。
+
+独立会话行为检查：
+
+- Ego Lite 对话重放：执行者只获得 Skill 位置和原始对话，最后用户要求打开测试网站。实际回复保留 Ego Lite 目标，检查命令和进程；报告没有发现，但未断言没安装。下一步指向安装入口核实，没有把普通测试链接当作完成。
+- 迁移情境：Zotero Connector 保存文章，用户要求直接代办。执行者保留 Zotero 指定路径，明确当前只读权限下尚未保存，没有把获取文章或给替代文件当作成功。
+
+代码审阅发现并修复了：更换练习后仍可复用旧结果；数组型 evidence 序列化丢失；安装配置错误导致半成品无法重试。对应回归检查通过。
+
+边界：以上没有实际安装或操作 Ego Lite，也没有在真实新手和全新客户端里完成端到端验收。证据记录由调用者提交，程序不能验证其真实性；check 命令只约束经由该命令的状态转换，不拦截任意 Agent 绕过它的工具操作。宿主实际发现 Skill、加载 hook 和跨轮保持目标仍需在目标客户端确认。以下 v0.4 测试保留为历史记录，不等同于 v0.5 全量重测。
+
+### English summary
+
+Nine executable Node test groups pass. Two independent read-only conversations checked the Ego Lite continuation and transfer to Zotero Connector. Neither performed a real browser task. The helper checks submitted state and evidence structure, not evidence truth or arbitrary tool calls. Actual host activation and end-to-end beginner success remain unverified. The official Python quick validator could not run without PyYAML; a package-specific Node structural check passed. The v0.4 results below are historical, not a full v0.5 retest.
 
 [中文首页](../README.md) · [English README](../README.en.md)
 

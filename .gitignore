@@ -3,6 +3,8 @@ Thumbs.db
 __pycache__/
 *.pyc
 node_modules/
+.ai-beginner-coach/
+*.coach-backup*
 .env
 .env.*
 !.env.example
